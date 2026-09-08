@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PVC Global | AI Study Assistant</title>
+
+    <meta name="description"
+          content="PVC Global AI Study Abroad Assistant helps students explore destinations, universities, scholarships, IELTS and visa guidance.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0b63ce;
+            --primary-dark: #084ea8;
+            --primary-soft: #eef6ff;
+
+            --dark: #101828;
+            --text: #344054;
+            --muted: #667085;
+            --light-muted: #98a2b3;
+
+            --border: #e4e7ec;
+            --background: #f6f8fc;
+            --white: #ffffff;
+
+            --success: #12b76a;
+
+            --shadow:
+                0 20px 60px rgba(16, 24, 40, 0.09);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(11, 99, 206, 0.07),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(11, 99, 206, 0.05),
+                    transparent 28%
+                ),
+                var(--background);
+
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            outline: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =====================================================
+           TOP NAVIGATION
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+            height: 76px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(228, 231, 236, 0.9);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: min(1240px, 92%);
+            height: 100%;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #0b63ce,
+                #1c7be5
+            );
+
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+
+            box-shadow:
+                0 8px 20px rgba(11, 99, 206, 0.2);
+        }
+
+        .brand-text {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--dark);
+        }
+
+        .brand-text span {
+            color: var(--primary);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 14px;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: #fff;
+
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+
+            transition: 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            border-color: #b8d6fa;
+            background: var(--primary-soft);
+        }
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .main {
+            width: min(1240px, 92%);
+            margin: 0 auto;
+            padding: 54px 0 70px;
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 13px;
+
+            border: 1px solid #d8e9fc;
+            border-radius: 999px;
+
+            background: rgba(238, 246, 255, 0.9);
+
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 16px;
+        }
+
+        .hero-badge i {
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+            margin: auto;
+
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 1.08;
+
+            letter-spacing: -0.045em;
+
+            color: var(--dark);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(
+                90deg,
+                #0b63ce,
+                #2f87e9
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            max-width: 730px;
+            margin: 18px auto 0;
+
+            font-size: 15px;
+            line-height: 1.8;
+
+            color: var(--muted);
+        }
+
+        /* =====================================================
+           AI APP
+        ===================================================== */
+
+        .ai-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+
+            background: #fff;
+
+            border: 1px solid rgba(228, 231, 236, 0.95);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+            display: grid;
+            grid-template-columns: 285px 1fr;
+
+            min-height: 710px;
+        }
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+            background:
+                linear-gradient(
+                    180deg,
+                    #fbfdff 0%,
+                    #f7faff 100%
+                );
+
+            border-right: 1px solid var(--border);
+
+            padding: 22px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ai-logo {
+            width: 48px;
+            height: 48px;
+
+            flex-shrink: 0;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b63ce,
+                    #287fe0
+                );
+
+            color: #fff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+
+            box-shadow:
+                0 8px 24px rgba(11, 99, 206, 0.2);
+        }
+
+        .profile h3 {
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            color: var(--success);
+
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+
+            background: var(--success);
+
+            box-shadow:
+                0 0 0 4px rgba(18, 183, 106, 0.1);
+        }
+
+        .sidebar-heading {
+            margin:
+                25px 0
+                11px;
+
+            color: var(--light-muted);
+
+            text-transform: uppercase;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: 0.11em;
+        }
+
+        /* =====================================================
+           QUICK PROMPTS
+        ===================================================== */
+
+        .prompt-card {
+            width: 100%;
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            background: #fff;
+
+            padding: 12px;
+
+            margin-bottom: 9px;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-2px);
+
+            border-color: #bcd9f9;
+
+            box-shadow:
+                0 10px 25px rgba(16, 24, 40, 0.06);
+        }
+
+        .prompt-icon {
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: var(--primary-soft);
+            color: var(--primary);
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+        }
+
+        .prompt-card strong {
+            display: block;
+
+            color: var(--dark);
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+        }
+
+        .prompt-card span {
+            display: block;
+
+            color: var(--light-muted);
+
+            font-size: 10px;
+
+            line-height: 1.45;
+        }
+
+        /* =====================================================
+           SIDEBAR INFO
+        ===================================================== */
+
+        .sidebar-info {
+            margin-top: auto;
+
+            padding: 13px;
+
+            border-radius: 12px;
+
+            background: #f0f7ff;
+
+            border: 1px solid #dceefe;
+        }
+
+        .sidebar-info-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 7px;
+
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .sidebar-info p {
+            color: #667085;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           CHAT SECTION
+        ===================================================== */
+
+        .chat {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .chat-topbar {
+            padding: 18px 22px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #fff;
+        }
+
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .small-ai-icon {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: var(--primary-soft);
+            color: var(--primary);
+
+            font-size: 14px;
+        }
+
+        .chat-title h2 {
+            font-size: 14px;
+            color: var(--dark);
+
+            margin-bottom: 3px;
+        }
+
+        .chat-title p {
+            color: var(--light-muted);
+            font-size: 10px;
+        }
+
+        .clear-button {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 9px;
+
+            border: 1px solid var(--border);
+
+            background: #fff;
+
+            color: var(--muted);
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .clear-button:hover {
+            color: #d92d20;
+            border-color: #f0c2be;
+            background: #fff7f6;
+        }
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .messages {
+            flex: 1;
+
+            padding: 27px;
+
+            overflow-y: auto;
+
+            background:
+                radial-gradient(
+                    circle at 70% 0%,
+                    rgba(11, 99, 206, 0.025),
+                    transparent 25%
+                ),
+                #fbfcfe;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #d0d5dd;
+            border-radius: 999px;
+        }
+
+        .message-row {
+            width: 100%;
+            display: flex;
+
+            margin-bottom: 20px;
+        }
+
+        .message-row.user {
+            justify-content: flex-end;
+        }
+
+        .message {
+            max-width: min(74%, 620px);
+
+            padding: 14px 16px;
+
+            border-radius: 17px;
+
+            font-size: 13px;
+            line-height: 1.72;
+
+            word-wrap: break-word;
+        }
+
+        .message.ai {
+            background: #fff;
+
+            border: 1px solid var(--border);
+
+            color: var(--text);
+
+            border-bottom-left-radius: 5px;
+
+            box-shadow:
+                0 5px 18px rgba(16, 24, 40, 0.025);
+        }
+
+        .message.user {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b63ce,
+                    #237be0
+                );
+
+            color: white;
+
+            border-bottom-right-radius: 5px;
+
+            box-shadow:
+                0 8px 22px rgba(11, 99, 206, 0.16);
+        }
+
+        .message-label {
+            font-size: 9px;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.08em;
+
+            margin-bottom: 6px;
+
+            opacity: 0.6;
+        }
+
+        .message.ai .message-label {
+            color: var(--primary);
+        }
+
+        .message.user .message-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* =====================================================
+           WELCOME MESSAGE
+        ===================================================== */
+
+        .welcome-box {
+            max-width: 620px;
+
+            padding: 18px;
+
+            background: linear-gradient(
+                135deg,
+                #f1f8ff,
+                #f8fbff
+            );
+
+            border: 1px solid #dbeeff;
+
+            border-radius: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .welcome-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-bottom: 9px;
+        }
+
+        .welcome-title-icon {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: var(--primary);
+            color: #fff;
+
+            font-size: 12px;
+        }
+
+        .welcome-title strong {
+            color: var(--dark);
+            font-size: 13px;
+        }
+
+        .welcome-box p {
+            color: #526078;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .welcome-topics {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 13px;
+        }
+
+        .topic {
+            padding: 6px 9px;
+
+            border-radius: 7px;
+
+            background: rgba(255,255,255,0.75);
+
+            border: 1px solid #dceefe;
+
+            color: #526078;
+
+            font-size: 9px;
+
+            font-weight: 600;
+        }
+
+        /* =====================================================
+           TYPING
+        ===================================================== */
+
+        .typing {
+            display: none;
+
+            align-items: center;
+            gap: 5px;
+
+            width: fit-content;
+
+            padding: 11px 14px;
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            border-bottom-left-radius: 5px;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+
+            background: #98a2b3;
+
+            border-radius: 50%;
+
+            animation:
+                typingAnimation 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.30s;
+        }
+
+        @keyframes typingAnimation {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* =====================================================
+           INPUT AREA
+        ===================================================== */
+
+        .input-area {
+            padding: 16px 18px 17px;
+
+            border-top: 1px solid var(--border);
+
+            background: #fff;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: flex-end;
+            gap: 9px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 15px;
+
+            padding: 7px;
+
+            background: #fff;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #84b8f1;
+
+            box-shadow:
+                0 0 0 4px rgba(11, 99, 206, 0.07);
+        }
+
+        .input-wrapper textarea {
+            flex: 1;
+
+            resize: none;
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            color: var(--text);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            padding: 10px;
+
+            min-height: 42px;
+
+            max-height: 120px;
+        }
+
+        .input-wrapper textarea::placeholder {
+            color: #98a2b3;
+        }
+
+        .send-button {
+            width: 44px;
+            height: 44px;
+
+            flex-shrink: 0;
+
+            border: 0;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0b63ce,
+                    #257de0
+                );
+
+            color: white;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                opacity 0.2s;
+        }
+
+        .send-button:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 18px rgba(11, 99, 206, 0.18);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .input-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 7px;
+        }
+
+        .input-hint {
+            color: #98a2b3;
+            font-size: 9px;
+        }
+
+        .input-hint i {
+            margin-right: 4px;
+        }
+
+        .privacy-note {
+            color: #98a2b3;
+            font-size: 9px;
+            text-align: right;
+        }
+
+        /* =====================================================
+           BOTTOM NOTE
+        ===================================================== */
+
+        .disclaimer {
+            max-width: 1120px;
+
+            margin: 14px auto 0;
+
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 11px 14px;
+
+            border: 1px solid #e8edf4;
+
+            background: rgba(255,255,255,0.72);
+
+            border-radius: 10px;
+
+            color: #7b8798;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+        }
+
+        .disclaimer i {
+            color: #667085;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .ai-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .message {
+                max-width: 82%;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                height: 68px;
+            }
+
+            .main {
+                width: 94%;
+                padding: 32px 0 45px;
+            }
+
+            .hero {
+                margin-bottom: 23px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            .ai-shell {
+                border-radius: 18px;
+                min-height: 650px;
+            }
+
+            .chat-topbar {
+                padding: 14px;
+            }
+
+            .messages {
+                padding: 17px 13px;
+            }
+
+            .message {
+                max-width: 90%;
+                font-size: 12px;
+            }
+
+            .input-area {
+                padding: 11px;
+            }
+
+            .input-footer {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .privacy-note {
+                text-align: left;
+            }
+
+            .back-link span {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 420px) {
+
+            .brand-text {
+                font-size: 15px;
+            }
+
+            .brand-icon {
+                width: 37px;
+                height: 37px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+            }
+
+            .hero p {
+                font-size: 12px;
+                line-height: 1.7;
+            }
+
+            .chat-title h2 {
+                font-size: 13px;
+            }
+
+            .chat-title p {
+                font-size: 9px;
+            }
+
+            .welcome-box {
+                padding: 14px;
+            }
+
+            .topic {
+                font-size: 8px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="index.html" class="brand">
+
+            <div class="brand-icon">
+                PVC
+            </div>
+
+            <div class="brand-text">
+                <span>GLOBAL</span>
+            </div>
+
+        </a>
+
+
+        <a href="index.html" class="back-link">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>Back to PVC Global</span>
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main class="main">
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero">
+
+        <div class="hero-badge">
+
+            <i class="fa-solid fa-sparkles"></i>
+
+            PVC Global AI Assistant
+
+        </div>
+
+
+        <h1>
+
+            Your Smarter Way to
+
+            <span>Study Abroad</span>
+
+        </h1>
+
+
+        <p>
+
+            Get personalized guidance on study destinations,
+            universities, applications, scholarships, IELTS,
+            documents and visa preparation.
+
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         AI APPLICATION
+    ================================================== -->
+
+    <section class="ai-shell">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- PROFILE -->
+
+            <div class="profile">
+
+                <div class="ai-logo">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        PVC AI Assistant
+                    </h3>
+
+                    <div class="status">
+
+                        <span class="status-dot"></span>
+
+                        Available now
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK QUESTIONS -->
+
+            <div class="sidebar-heading">
+                Popular Questions
+            </div>
+
+
+            <button
+                class="prompt-card"
+                onclick="useQuestion('Which country is best for international students?')">
+
+                <div class="prompt-icon">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </div>
+
+                <strong>
+                    Choose a destination
+                </strong>
+
+                <span>
+                    Compare popular study destinations.
+                </span>
+
+            </button>
+
+
+            <button
+                class="prompt-card"
+                onclick="useQuestion('What documents do I need to apply to a university?')">
+
+                <div class="prompt-icon">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+
+                <strong>
+                    Application documents
+                </strong>
+
+                <span>
+                    Learn about commonly required documents.
+                </span>
+
+            </button>
+
+
+            <button
+                class="prompt-card"
+                onclick="useQuestion('How can I get a scholarship?')">
+
+                <div class="prompt-icon">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+
+                <strong>
+                    Find scholarships
+                </strong>
+
+                <span>
+                    Explore scholarship guidance.
+                </span>
+
+            </button>
+
+
+            <button
+                class="prompt-card"
+                onclick="useQuestion('What IELTS score do I need?')">
+
+                <div class="prompt-icon">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+
+                <strong>
+                    IELTS requirements
+                </strong>
+
+                <span>
+                    Understand English language requirements.
+                </span>
+
+            </button>
+
+
+            <button
+                class="prompt-card"
+                onclick="useQuestion('How does the student visa application process work?')">
+
+                <div class="prompt-icon">
+                    <i class="fa-solid fa-passport"></i>
+                </div>
+
+                <strong>
+                    Visa guidance
+                </strong>
+
+                <span>
+                    Learn about general visa preparation.
+                </span>
+
+            </button>
+
+
+            <!-- INFORMATION -->
+
+            <div class="sidebar-info">
+
+                <div class="sidebar-info-title">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    AI Guidance
+
+                </div>
+
+
+                <p>
+
+                    Answers are generated using PVC Global's
+                    knowledge base and AI. Always verify
+                    important immigration information with
+                    official sources.
+
+                </p>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =================================================
+             CHAT
+        ================================================== -->
+
+        <div class="chat">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-topbar">
+
+                <div class="chat-title">
+
+                    <div class="small-ai-icon">
+
+                        <i class="fa-solid fa-robot"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Study Abroad Assistant
+                        </h2>
+
+                        <p>
+                            Ask your question below
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="clear-button"
+                    onclick="clearChat()"
+                    title="Start a new conversation">
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 MESSAGE AREA
+            ================================================== -->
+
+            <div class="messages" id="messages">
+
+
+                <!-- WELCOME MESSAGE -->
+
+                <div class="message-row">
+
+                    <div class="welcome-box">
+
+                        <div class="welcome-title">
+
+                            <div class="welcome-title-icon">
+
+                                <i class="fa-solid fa-sparkles"></i>
+
+                            </div>
+
+                            <strong>
+                                Welcome to PVC Global AI
+                            </strong>
+
+                        </div>
+
+
+                        <p>
+
+                            Hi! I'm your AI study-abroad assistant.
+                            Ask me anything about your international
+                            education journey and I'll help you
+                            find the right information.
+
+                        </p>
+
+
+                        <div class="welcome-topics">
+
+                            <span class="topic">
+                                Destinations
+                            </span>
+
+                            <span class="topic">
+                                Universities
+                            </span>
+
+                            <span class="topic">
+                                Scholarships
+                            </span>
+
+                            <span class="topic">
+                                IELTS
+                            </span>
+
+                            <span class="topic">
+                                Visa
+                            </span>
+
+                            <span class="topic">
+                                Documents
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TYPING INDICATOR -->
+
+                <div class="typing" id="typing">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 INPUT
+            ================================================== -->
+
+            <div class="input-area">
+
+                <div class="input-wrapper">
+
+                    <textarea
+                        id="messageInput"
+                        rows="1"
+                        maxlength="1000"
+                        placeholder="Ask about your study abroad journey..."
+                        aria-label="Ask PVC Global AI Assistant"></textarea>
+
+
+                    <button
+                        class="send-button"
+                        id="sendButton"
+                        onclick="sendMessage()"
+                        title="Send message">
+
+                        <i class="fa-solid fa-arrow-up"></i>
+
+                    </button>
+
+                </div>
+
+
+                <div class="input-footer">
+
+                    <div class="input-hint">
+
+                        <i class="fa-solid fa-keyboard"></i>
+
+                        Press Enter to send
+
+                    </div>
+
+
+                    <div class="privacy-note">
+
+                        AI-generated guidance • Verify important information
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         DISCLAIMER
+    ================================================== -->
+
+    <div class="disclaimer">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        <span>
+
+            PVC Global AI provides general study-abroad guidance.
+            Admission, visa, scholarship and immigration decisions
+            are made by the relevant universities or authorities.
+
+        </span>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+    /* =====================================================
+       DOM ELEMENTS
+    ===================================================== */
+
+    const messageInput =
+        document.getElementById("messageInput");
+
+    const messagesContainer =
+        document.getElementById("messages");
+
+    const sendButton =
+        document.getElementById("sendButton");
+
+    const typing =
+        document.getElementById("typing");
+
+
+    /* =====================================================
+       CONVERSATION STATE
+    ===================================================== */
+
+    let conversationHistory = [];
+
+    let conversationId =
+        sessionStorage.getItem(
+            "pvc_conversation_id"
+        ) || null;
+
+
+    /* =====================================================
+       SESSION ID
+    ===================================================== */
+
+    function getSessionId() {
+
+        let sessionId =
+            sessionStorage.getItem(
+                "pvc_session_id"
+            );
+
+
+        if (!sessionId) {
+
+            if (
+                window.crypto &&
+                typeof window.crypto.randomUUID === "function"
+            ) {
+
+                sessionId =
+                    window.crypto.randomUUID();
+
+            } else {
+
+                sessionId =
+                    "pvc-" +
+                    Date.now() +
+                    "-" +
+                    Math.random()
+                        .toString(36)
+                        .substring(2);
+
+            }
+
+
+            sessionStorage.setItem(
+                "pvc_session_id",
+                sessionId
+            );
+
+        }
+
+
+        return sessionId;
+
+    }
+
+
+    /* =====================================================
+       ENTER TO SEND
+    ===================================================== */
+
+    messageInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       TEXTAREA AUTO RESIZE
+    ===================================================== */
+
+    messageInput.addEventListener(
+        "input",
+        function() {
+
+            this.style.height = "auto";
+
+            this.style.height =
+                Math.min(
+                    this.scrollHeight,
+                    120
+                ) + "px";
+
+        }
+    );
+
+
+    /* =====================================================
+       QUICK QUESTION
+    ===================================================== */
+
+    function useQuestion(question) {
+
+        messageInput.value =
+            question;
+
+        messageInput.focus();
+
+        messageInput.style.height =
+            "auto";
+
+        messageInput.style.height =
+            Math.min(
+                messageInput.scrollHeight,
+                120
+            ) + "px";
+
+        sendMessage();
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            text;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================================
+       FORMAT AI RESPONSE
+    ===================================================== */
+
+    function formatResponse(text) {
+
+        let safeText =
+            escapeHtml(text);
+
+        safeText =
+            safeText.replace(
+                /\n/g,
+                "<br>"
+            );
+
+        return safeText;
+
+    }
+
+
+    /* =====================================================
+       ADD MESSAGE
+    ===================================================== */
+
+    function addMessage(
+        text,
+        sender
+    ) {
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "message-row " +
+            (
+                sender === "user"
+                    ? "user"
+                    : ""
+            );
+
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+
+        message.className =
+            "message " +
+            (
+                sender === "user"
+                    ? "user"
+                    : "ai"
+            );
+
+
+        const label =
+            document.createElement(
+                "div"
+            );
+
+
+        label.className =
+            "message-label";
+
+
+        label.textContent =
+            sender === "user"
+                ? "You"
+                : "PVC AI";
+
+
+        const content =
+            document.createElement(
+                "div"
+            );
+
+
+        content.innerHTML =
+            formatResponse(text);
+
+
+        message.appendChild(label);
+
+        message.appendChild(content);
+
+        row.appendChild(message);
+
+
+        messagesContainer.insertBefore(
+            row,
+            typing
+        );
+
+
+        messagesContainer.scrollTop =
+            messagesContainer.scrollHeight;
+
+    }
+
+
+    /* =====================================================
+       SEND MESSAGE
+    ===================================================== */
+
+    async function sendMessage() {
+
+        const message =
+            messageInput.value.trim();
+
+
+        if (!message) {
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           Show user message
+        --------------------------------------------- */
+
+        addMessage(
+            message,
+            "user"
+        );
+
+
+        /* ---------------------------------------------
+           Local history
+        --------------------------------------------- */
+
+        conversationHistory.push({
+
+            role: "user",
+
+            content: message
+
+        });
+
+
+        /* ---------------------------------------------
+           Reset input
+        --------------------------------------------- */
+
+        messageInput.value = "";
+
+        messageInput.style.height =
+            "auto";
+
+
+        /* ---------------------------------------------
+           Disable button
+        --------------------------------------------- */
+
+        sendButton.disabled = true;
+
+
+        /* ---------------------------------------------
+           Show typing
+        --------------------------------------------- */
+
+        typing.style.display =
+            "flex";
+
+
+        messagesContainer.scrollTop =
+            messagesContainer.scrollHeight;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://127.0.0.1:5001/api/ai/chat",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "X-Session-ID":
+                                getSessionId()
+
+                        },
+
+                        body: JSON.stringify({
+
+                            message:
+                                message,
+
+                            conversation_id:
+                                conversationId
+
+                        })
+
+                    }
+                );
+
+
+            /* -----------------------------------------
+               HTTP ERROR
+            ----------------------------------------- */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "HTTP " +
+                    response.status
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               JSON
+            ----------------------------------------- */
+
+            const data =
+                await response.json();
+
+
+            /* -----------------------------------------
+               Hide typing
+            ----------------------------------------- */
+
+            typing.style.display =
+                "none";
+
+
+            /* -----------------------------------------
+               Backend error
+            ----------------------------------------- */
+
+            if (!data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "AI request failed."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               Save conversation ID
+            ----------------------------------------- */
+
+            if (
+                data.conversation_id
+            ) {
+
+                conversationId =
+                    data.conversation_id;
+
+
+                sessionStorage.setItem(
+                    "pvc_conversation_id",
+                    String(conversationId)
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               AI RESPONSE
+            ----------------------------------------- */
+
+            const aiResponse =
+                data.reply ||
+                "Sorry, I couldn't generate a response right now.";
+
+
+            addMessage(
+                aiResponse,
+                "ai"
+            );
+
+
+            /* -----------------------------------------
+               Local history
+            ----------------------------------------- */
+
+            conversationHistory.push({
+
+                role: "assistant",
+
+                content: aiResponse
+
+            });
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "PVC AI ERROR:",
+                error
+            );
+
+
+            typing.style.display =
+                "none";
+
+
+            addMessage(
+
+                "I'm currently unable to connect to the PVC Global AI service. Please try again in a moment.",
+
+                "ai"
+
+            );
+
+        }
+
+
+        finally {
+
+            sendButton.disabled =
+                false;
+
+            messageInput.focus();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CLEAR / NEW CONVERSATION
+    ===================================================== */
+
+    function clearChat() {
+
+        conversationHistory = [];
+
+        conversationId = null;
+
+
+        sessionStorage.removeItem(
+            "pvc_conversation_id"
+        );
+
+
+        messagesContainer.innerHTML = "";
+
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+
+        row.className =
+            "message-row";
+
+
+        row.innerHTML = `
+
+            <div class="welcome-box">
+
+                <div class="welcome-title">
+
+                    <div class="welcome-title-icon">
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                    </div>
+
+                    <strong>
+                        New conversation
+                    </strong>
+
+                </div>
+
+
+                <p>
+
+                    Your previous conversation has been cleared.
+                    What would you like to know about studying abroad?
+
+                </p>
+
+
+                <div class="welcome-topics">
+
+                    <span class="topic">
+                        Destinations
+                    </span>
+
+                    <span class="topic">
+                        Universities
+                    </span>
+
+                    <span class="topic">
+                        Scholarships
+                    </span>
+
+                    <span class="topic">
+                        IELTS
+                    </span>
+
+                    <span class="topic">
+                        Visa
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        messagesContainer.appendChild(
+            row
+        );
+
+
+        messagesContainer.appendChild(
+            typing
+        );
+
+
+        typing.style.display =
+            "none";
+
+
+        messageInput.focus();
+
+    }
+
+
+    /* =====================================================
+       INITIAL SCROLL
+    ===================================================== */
+
+    messagesContainer.scrollTop =
+        messagesContainer.scrollHeight;
+
+</script>
+
+
+</body>
+</html>
