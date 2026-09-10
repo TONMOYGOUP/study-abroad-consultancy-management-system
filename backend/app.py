@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
+from pathlib import Path
 
 from database import init_db
 from auth import auth
@@ -14,6 +15,7 @@ CORS(app)
 
 init_db()
 
+# Register existing API blueprints
 app.register_blueprint(auth)
 app.register_blueprint(contact)
 app.register_blueprint(ai_assistant)
@@ -21,6 +23,28 @@ app.register_blueprint(admin)
 app.register_blueprint(faq)
 app.register_blueprint(dashboard)
 
+
+# =========================
+# Frontend
+# =========================
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+
+@app.route("/")
+def home():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/<path:filename>")
+def frontend_files(filename):
+    return send_from_directory(FRONTEND_DIR, filename)
+
+
+# =========================
+# Health Check
+# =========================
 
 @app.route("/api/health", methods=["GET"])
 def health():
