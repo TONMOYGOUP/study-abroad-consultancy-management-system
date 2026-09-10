@@ -1,24 +1,38 @@
 import sqlite3
+from pathlib import Path
 
-DATABASE = "pvc_global.db"
 
+BASE_DIR = Path(__file__).resolve().parent
+DATABASE = BASE_DIR / "pvc_global.db"
+
+
+# =========================================================
+# DATABASE CONNECTION
+# =========================================================
 
 def get_connection():
+
     conn = sqlite3.connect(DATABASE)
+
     conn.row_factory = sqlite3.Row
+
     return conn
 
 
+# =========================================================
+# INITIALIZE DATABASE
+# =========================================================
+
 def init_db():
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    # =====================================================
-    # CONTACTS TABLE
-    # =====================================================
+    # -----------------------------------------------------
+    # CONTACTS
+    # -----------------------------------------------------
 
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS contacts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             full_name TEXT NOT NULL,
@@ -29,33 +43,43 @@ def init_db():
             message TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
-        """
-    )
+    """)
 
-    # =====================================================
-    # USERS TABLE
-    # For Sign In / Register
-    # =====================================================
+    # -----------------------------------------------------
+    # USERS
+    # -----------------------------------------------------
 
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             full_name TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             password_hash TEXT NOT NULL,
+            role TEXT NOT NULL DEFAULT 'user',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
-        """
-    )
+    """)
 
-    # =====================================================
-    # FAQ TABLE
-    # AI Knowledge Base
-    # =====================================================
+    # Check role column for old database
+    cursor.execute("PRAGMA table_info(users)")
 
-    cursor.execute(
-        """
+    columns = [
+        row["name"]
+        for row in cursor.fetchall()
+    ]
+
+    if "role" not in columns:
+
+        cursor.execute("""
+            ALTER TABLE users
+            ADD COLUMN role TEXT DEFAULT 'user'
+        """)
+
+    # -----------------------------------------------------
+    # FAQS
+    # -----------------------------------------------------
+
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS faqs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             category TEXT NOT NULL,
@@ -66,54 +90,45 @@ def init_db():
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
-        """
-    )
+    """)
 
-    # =====================================================
-    # CONVERSATIONS TABLE
-    # AI Chat Sessions
-    # =====================================================
+    # -----------------------------------------------------
+    # CONVERSATIONS
+    # -----------------------------------------------------
 
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS conversations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER,
             session_id TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
             FOREIGN KEY (user_id)
-                REFERENCES users(id)
+            REFERENCES users(id)
         )
-        """
-    )
+    """)
 
-    # =====================================================
-    # CHAT MESSAGES TABLE
-    # AI Messages
-    # =====================================================
+    # -----------------------------------------------------
+    # CHAT MESSAGES
+    # -----------------------------------------------------
 
-    cursor.execute(
-        """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS chat_messages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             conversation_id INTEGER NOT NULL,
             role TEXT NOT NULL,
             message TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
             FOREIGN KEY (conversation_id)
-                REFERENCES conversations(id)
+            REFERENCES conversations(id)
         )
-        """
-    )
+    """)
 
     conn.commit()
     conn.close()
 
 
 # =========================================================
-# CONTACT FUNCTIONS
+# CONTACT
 # =========================================================
 
 def save_contact(
@@ -124,11 +139,11 @@ def save_contact(
     subject,
     message
 ):
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         INSERT INTO contacts
         (
             full_name,
@@ -139,28 +154,25 @@ def save_contact(
             message
         )
         VALUES (?, ?, ?, ?, ?, ?)
-        """,
-        (
-            full_name,
-            email,
-            phone,
-            destination,
-            subject,
-            message
-        )
-    )
-
-    conn.commit()
+    """, (
+        full_name,
+        email,
+        phone,
+        destination,
+        subject,
+        message
+    ))
 
     contact_id = cursor.lastrowid
 
+    conn.commit()
     conn.close()
 
     return contact_id
 
 
 # =========================================================
-# FAQ FUNCTIONS
+# FAQ
 # =========================================================
 
 def add_faq(
@@ -169,11 +181,11 @@ def add_faq(
     answer,
     keywords=""
 ):
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         INSERT INTO faqs
         (
             category,
@@ -182,31 +194,28 @@ def add_faq(
             keywords
         )
         VALUES (?, ?, ?, ?)
-        """,
-        (
-            category,
-            question,
-            answer,
-            keywords
-        )
-    )
+    """, (
+        category,
+        question,
+        answer,
+        keywords
+    ))
 
     conn.commit()
     conn.close()
 
 
 def get_all_faqs():
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT *
         FROM faqs
         WHERE active = 1
         ORDER BY category, id
-        """
-    )
+    """)
 
     faqs = cursor.fetchall()
 
@@ -216,36 +225,30 @@ def get_all_faqs():
 
 
 def search_faq(query):
+
     conn = get_connection()
     cursor = conn.cursor()
 
     search_term = f"%{query.lower()}%"
 
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT *
         FROM faqs
-
         WHERE active = 1
-
         AND (
             LOWER(question) LIKE ?
             OR LOWER(answer) LIKE ?
             OR LOWER(keywords) LIKE ?
             OR LOWER(category) LIKE ?
         )
-
         ORDER BY id DESC
-
         LIMIT 5
-        """,
-        (
-            search_term,
-            search_term,
-            search_term,
-            search_term
-        )
-    )
+    """, (
+        search_term,
+        search_term,
+        search_term,
+        search_term
+    ))
 
     results = cursor.fetchall()
 
@@ -255,49 +258,56 @@ def search_faq(query):
 
 
 # =========================================================
-# AI CONVERSATION FUNCTIONS
+# CREATE CONVERSATION
 # =========================================================
 
 def create_conversation(
     user_id=None,
     session_id=None
 ):
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         INSERT INTO conversations
         (
             user_id,
             session_id
         )
         VALUES (?, ?)
-        """,
-        (
-            user_id,
-            session_id
-        )
-    )
+    """, (
+        user_id,
+        session_id
+    ))
 
     conversation_id = cursor.lastrowid
 
     conn.commit()
     conn.close()
 
+    print(
+        "Conversation created:",
+        conversation_id
+    )
+
     return conversation_id
 
+
+# =========================================================
+# SAVE CHAT MESSAGE
+# =========================================================
 
 def save_message(
     conversation_id,
     role,
     message
 ):
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         INSERT INTO chat_messages
         (
             conversation_id,
@@ -305,34 +315,52 @@ def save_message(
             message
         )
         VALUES (?, ?, ?)
-        """,
-        (
-            conversation_id,
-            role,
-            message
-        )
-    )
+    """, (
+        conversation_id,
+        role,
+        message
+    ))
+
+    message_id = cursor.lastrowid
 
     conn.commit()
     conn.close()
 
+    print(
+        "Chat message saved:",
+        message_id,
+        "| conversation:",
+        conversation_id,
+        "| role:",
+        role
+    )
 
-def get_chat_history(conversation_id):
+    return message_id
+
+
+# =========================================================
+# GET CHAT HISTORY
+# =========================================================
+
+def get_chat_history(
+    conversation_id
+):
+
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        """
+    cursor.execute("""
         SELECT
+            id,
             role,
             message,
             created_at
         FROM chat_messages
         WHERE conversation_id = ?
         ORDER BY id ASC
-        """,
-        (conversation_id,)
-    )
+    """, (
+        conversation_id,
+    ))
 
     messages = cursor.fetchall()
 
@@ -342,9 +370,13 @@ def get_chat_history(conversation_id):
 
 
 # =========================================================
-# INITIALIZE DATABASE
+# RUN DIRECTLY
 # =========================================================
 
 if __name__ == "__main__":
+
     init_db()
-    print("PVC Global database initialized successfully.")
+
+    print(
+        "PVC Global database initialized successfully."
+    )
